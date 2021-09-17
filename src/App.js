@@ -18,7 +18,9 @@ function App() {
         .style('margin-top', '50')
     //setup scaling
     //setup axes
+    console.log(h);
     //setup data for svg
+    console.log(svg);
   } ,[data]);
 
   return (
