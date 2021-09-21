@@ -1,0 +1,2 @@
+[dependencies]
+switchboard-program = "0.1.45" # requires `rustc --version` >= 1.51.0
