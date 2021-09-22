@@ -1,12 +1,10 @@
 import './App.css';
 import React, { PureComponent, useState, useRef, useEffect } from 'react';
-//import * as d3 from 'd3'
-import './App.css'
-import {apiCall} from '../src/api-test'
+import {apiCall} from '../api/tokenApi'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import logo from '../src/resources/off-piste-logo.jpeg'
-import '../src/resources/styles.css'
+import logo from '../resources/off-piste-logo.jpeg'
 //let d3 handle the controlling of dom through use ref
+import {Card, Container, Col, Row, Button, Sele} from "react-bootstrap";
 
 function App() {
     const data = [
@@ -52,9 +50,35 @@ function App() {
             pv: 4300,
             amt: 2100,
         }]
+    const [tokenName, setTokenName] = useState("bitcoin")
+    const [currencyType, setTokenType] = useState("usd")
+    const [tokenInfo, setTokenInfo] = useState({})
+
+    useEffect(async () => {
+        let info = await apiCall(tokenName, currencyType)
+        //console.log(tokenInfo + 'main app')
+        info = JSON.parse(info)
+        setTokenInfo(info)
+        setTokenName(Object.keys(info.data)[0].toUpperCase())
+        //setTokenType("")
+        console.log(info)
+        //setTokenName(info)
+    }, [tokenName])
+    //const tokenInfo = apiCall(tokenName, currencyType)
 //<label id="price"></label>
     //<button  onClick={apiCall}>btc price</button>
   return (
+      <Container>
+          <row>
+          <Card>
+              <Card.Img src={logo} width={40} height={40}/>
+              <Card.Body></Card.Body>
+              <Card.Title>{tokenName}</Card.Title>
+              <Card.Text>
+              </Card.Text>
+          </Card>
+              <button type="button" className="btn btn-info">Press me</button>
+          </row>
       <ResponsiveContainer width="100%" height="100%" aspect={3}>
         <LineChart
             width={500}
@@ -76,7 +100,8 @@ function App() {
           <Line type="monotone" dataKey="uv" stroke="#257D84" />
         </LineChart>
       </ResponsiveContainer>
-  );
+      </Container>
+  )
 }
 
 export default App;
