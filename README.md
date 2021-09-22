@@ -1,6 +1,8 @@
 # Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Run "npm i" to get all of the packaging set up.
+## Then run "npm i recharts" to bring the charts library into play. (Runs on d3 and react)
+## After this make sure to run "npm add bootstrap react-bootstrap" for proper styling.
 
 ## Available Scripts
 
