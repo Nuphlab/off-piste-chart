@@ -3243,6 +3243,11 @@
   "resolved" "https://registry.npmjs.org/boolbase/-/boolbase-1.0.0.tgz"
   "version" "1.0.0"
 
+"bootstrap-material-design-icons@^2.2.0":
+  "integrity" "sha1-YOL1hDZ6c8lgxRFYTW/VUS2+FR4="
+  "resolved" "https://registry.npmjs.org/bootstrap-material-design-icons/-/bootstrap-material-design-icons-2.2.0.tgz"
+  "version" "2.2.0"
+
 "bootstrap@^5.1.1":
   "integrity" "sha512-/jUa4sSuDZWlDLQ1gwQQR8uoYSvLJzDd8m5o6bPKh3asLAMYVZKdRCjb1joUd5WXf0WwCNzd2EjwQQhupou0dA=="
   "resolved" "https://registry.npmjs.org/bootstrap/-/bootstrap-5.1.1.tgz"
@@ -10285,6 +10290,11 @@
   "resolved" "https://registry.npmjs.org/react-error-overlay/-/react-error-overlay-6.0.9.tgz"
   "version" "6.0.9"
 
+"react-hook-form@^7.15.4":
+  "integrity" "sha512-jEtsDBPfpkz1uuJVlTLDOg+jO3cG9pFHT3g5uayVvlNT551IetXE1iwrSaxUR/QPWyJA2FLx4Q/VjO2viZNfLg=="
+  "resolved" "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.15.4.tgz"
+  "version" "7.15.4"
+
 "react-input-autosize@^3.0.0":
   "integrity" "sha512-nL9uS7jEs/zu8sqwFE5MAPx6pPkNAriACQ2rGLlqmKr2sPGtN7TXTyDdQt4lbNXVx7Uzadb40x8qotIuru6Rhg=="
   "resolved" "https://registry.npmjs.org/react-input-autosize/-/react-input-autosize-3.0.0.tgz"
@@ -10469,7 +10479,7 @@
     "prop-types" "^15.6.2"
     "react-lifecycles-compat" "^3.0.4"
 
-"react@*", "react@^15.0.0 || ^16.0.0 || ^17.0.0", "react@^16.0.0 || ^17.0.0", "react@^16.3.0 || ^17.0.0", "react@^16.8.0 || ^17.0.0", "react@^17.0.2", "react@>= 16", "react@>=0.14.0", "react@>=15.0.0", "react@>=16.3.0", "react@>=16.3.1", "react@>=16.3.2", "react@>=16.6.0", "react@>=16.8.0", "react@17.0.2":
+"react@*", "react@^15.0.0 || ^16.0.0 || ^17.0.0", "react@^16.0.0 || ^17.0.0", "react@^16.3.0 || ^17.0.0", "react@^16.8.0 || ^17", "react@^16.8.0 || ^17.0.0", "react@^17.0.2", "react@>= 16", "react@>=0.14.0", "react@>=15.0.0", "react@>=16.3.0", "react@>=16.3.1", "react@>=16.3.2", "react@>=16.6.0", "react@>=16.8.0", "react@17.0.2":
   "integrity" "sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA=="
   "resolved" "https://registry.npmjs.org/react/-/react-17.0.2.tgz"
   "version" "17.0.2"

@@ -1,10 +1,11 @@
 import './App.css';
-import React, { PureComponent, useState, useRef, useEffect } from 'react';
-import {apiCall} from '../api/tokenApi'
+import React, {useState, useEffect } from 'react';
+import {apiCall, tokenList} from '../api/tokenApi'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import logo from '../resources/off-piste-logo.jpeg'
 //let d3 handle the controlling of dom through use ref
-import {Card, Container, Col, Row, Button, Sele} from "react-bootstrap";
+import {Card, Container, Col, Row, Button, Form, ListGroup} from "react-bootstrap";
+import { useForm } from "react-hook-form";
 
 function App() {
     const data = [
@@ -53,32 +54,50 @@ function App() {
     const [tokenName, setTokenName] = useState("bitcoin")
     const [currencyType, setTokenType] = useState("usd")
     const [tokenInfo, setTokenInfo] = useState({})
+    const [list, setTokenList] = useState([])
+    const [selectedOption, setSelectedOption] = useState(null);
+    const { register, handleSubmit } = useForm();
 
-    useEffect(async () => {
-        let info = await apiCall(tokenName, currencyType)
-        //console.log(tokenInfo + 'main app')
-        info = JSON.parse(info)
-        setTokenInfo(info)
-        setTokenName(Object.keys(info.data)[0].toUpperCase())
-        //setTokenType("")
-        console.log(info)
-        //setTokenName(info)
+    function handleToken(data) {
+        setTokenName(data.tokenName)
+        console.log(data)
+    }
+
+    useEffect(() => {
+        async function newList() {
+            /*
+            let coinObj = await tokenList()
+            if(coinObj === undefined) {return}
+            coinObj = coinObj.map( coinObj => ({value:coinObj.id, label:coinObj.name}) )
+            setTokenList(coinObj)
+            console.log(coinObj)
+            //setTokenList(list)
+            //let info = await apiCall(tokenName, currencyType)
+             */
+
+
+            let info = await apiCall(tokenName, "usd")
+            setTokenInfo(info)
+            setTokenName(Object.keys(info.data)[0].toUpperCase())
+            //console.log(info)
+        }
+        newList()
     }, [tokenName])
-    //const tokenInfo = apiCall(tokenName, currencyType)
-//<label id="price"></label>
-    //<button  onClick={apiCall}>btc price</button>
   return (
-      <Container>
-          <row>
+      <div className="App">
+          <header className="App-header">
+              <Form className='mb-3' onSubmit={handleSubmit(handleToken)}>
+                  <input type="input" {...register('tokenName', { required: true })} className="form-control" id="token" name='tokenName' placeholder="token"/>
+                  <button type="submit" className="btn btn-danger">Submit</button>
+              </Form>
           <Card>
-              <Card.Img src={logo} width={40} height={40}/>
-              <Card.Body></Card.Body>
-              <Card.Title>{tokenName}</Card.Title>
-              <Card.Text>
-              </Card.Text>
+              <Card.Img src={logo}/>
+              <Card.Body>
+                  <Card.Title>{tokenName}</Card.Title>
+                  <Card.Text style={{color: "#000"}}>
+                  </Card.Text>
+              </Card.Body>
           </Card>
-              <button type="button" className="btn btn-info">Press me</button>
-          </row>
       <ResponsiveContainer width="100%" height="100%" aspect={3}>
         <LineChart
             width={500}
@@ -100,7 +119,31 @@ function App() {
           <Line type="monotone" dataKey="uv" stroke="#257D84" />
         </LineChart>
       </ResponsiveContainer>
-      </Container>
+          </header>
+              <Row className={'App-footer'}>
+                  <Col>
+
+                      <ListGroup horizontal>
+                          <ListGroup.Item>
+                              <Card>
+                                  <Card.Body>
+                                      <Card.Title>Price</Card.Title>
+                                  </Card.Body>
+                              </Card>
+                          </ListGroup.Item>
+                          <ListGroup.Item>Trading Volume</ListGroup.Item>
+                          <ListGroup.Item>Your Holdings</ListGroup.Item>
+                      </ListGroup>
+                  </Col>
+                  <Col>
+                      <ListGroup>
+                          <ListGroup.Item>Price</ListGroup.Item>
+                          <ListGroup.Item>Market to Value</ListGroup.Item>
+                          <ListGroup.Item>Volume</ListGroup.Item>
+                      </ListGroup>
+                  </Col>
+              </Row>
+    </div>
   )
 }
 
