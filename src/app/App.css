@@ -13,6 +13,14 @@
   }
 }
 
+.Container {
+  background-color: #282c34;
+}
+
+.List {
+  background-color: #282c34;
+}
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -32,7 +40,11 @@
   align-items: flex-start;
   justify-content: flex-start;
   font-size: calc(10px + 2vmin);
-  color: red;
+  color: black;
+}
+
+.Card {
+  background-color: #282c34;
 }
 
 .App-link {
