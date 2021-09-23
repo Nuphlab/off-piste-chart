@@ -44,7 +44,7 @@ function ChartFooter() {
             <Col>
                 <Card className={'mt-2'}>
                 <ListGroup.Item>
-                    <Badge pill bg={'green'}></Badge>
+                    <Badge pill bg={'black'}></Badge>
                     <label>Price<Icon size={.8} path={mdiInformationOutline}></Icon></label>
                 </ListGroup.Item>
                 <ListGroup.Item>

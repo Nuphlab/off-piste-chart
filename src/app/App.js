@@ -14,14 +14,10 @@ function App() {
   return (
       <Container fluid className={'Container'}>
           <Row>
-          <NavbarOP></NavbarOP>
+              <NavbarOP></NavbarOP>
           </Row>
           <Row>
-              <Container>
-                  <Card>
-                      <Chart></Chart>
-                  </Card>
-              </Container>
+              <Chart></Chart>
           </Row>
           <Row>
               <ChartFooter></ChartFooter>

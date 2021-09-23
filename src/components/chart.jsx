@@ -1,6 +1,7 @@
 import React from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import {Tab} from 'react-bootstrap'
+import {Container, Tab, Badge, Card, Navbar, Image} from 'react-bootstrap'
+import logo from '../resources/off-piste-logo.jpeg'
 
 export function Chart () {
     const data = [
@@ -47,26 +48,33 @@ export function Chart () {
             amt: 2100,
         }]
     return(
-        <ResponsiveContainer width="100%" height="100%" aspect={3}>
-            <LineChart
-                width={500}
-                height={300}
-                data={data}
-                margin={{
-                    top: 5,
-                    right: 30,
-                    left: 20,
-                    bottom: 5,
-                }}
-            >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="pv" stroke="#46D168" activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="uv" stroke="#257D84" />
-            </LineChart>
-        </ResponsiveContainer>
+        <Container>
+            <Card>
+                <Card.Title><Image width={40} height={40} src={logo} roundedCircle></Image>Token</Card.Title>
+                <Card.Body>
+                <ResponsiveContainer width="100%" height="100%" aspect={3}>
+                    <LineChart
+                        width={500}
+                        height={300}
+                        data={data}
+                        margin={{
+                            top: 5,
+                            right: 30,
+                            left: 20,
+                            bottom: 5,
+                        }}
+                    >
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Line type="monotone" dataKey="pv" stroke="#46D168" activeDot={{ r: 8 }} />
+                        <Line type="monotone" dataKey="uv" stroke="#257D84" />
+                    </LineChart>
+                </ResponsiveContainer>
+                </Card.Body>
+            </Card>
+        </Container>
     )
 }
