@@ -1,6 +1,6 @@
 import './App.css';
 import React, {useState, useEffect } from 'react';
-import {apiCall, tokenList} from '../api/tokenApi'
+import {getCoin, coinDataRefresh} from '../api/tokenApi'
 //let d3 handle the controlling of dom through use ref
 import logo from '../resources/off-piste-logo.jpeg'
 import {Card, Container, Col, Row, Button, Form, ListGroup, Tooltip, Navbar, Image, NavbarBrand} from "react-bootstrap";
@@ -10,14 +10,36 @@ import {ChartHeader} from "../components/chartHeader";
 import {NavbarOP} from "../components/navbar";
 
 function App() {
+    const [tokenName, setTokenName] = useState('')
+    const [tokenImage ,setTokenImg] = useState('')
+    const [tokenPrice, setTokenPrice] = useState('')
+    const [tokenData, setTokenData] = useState({})
 
+    useEffect(async () => {
+        const coinInfo = await getCoin('bitcoin')
+        setTokenName(coinInfo.id.toUpperCase())
+        setTokenImg(coinInfo.image.thumb)
+        //console.log(coinInfo.id)
+        //setTokenName(coinInfo.id)
+    })
+    useEffect(async () => {
+        const price = setInterval(async () => {
+            //const info = await coinDataRefresh('bitcoin', 'usd')
+            // const response = await getCoin('bitcoin', 'usd')
+            //setTokenData(info)
+            //setTokenName(info.id)
+            //console.log('hi')
+        },1000)
+    })
+
+    const [coinInfo, setCoinInfo] = useState("")
   return (
       <Container fluid className={'Container'}>
           <Row>
               <NavbarOP></NavbarOP>
           </Row>
           <Row>
-              <Chart></Chart>
+              <Chart tokenName={tokenName} tokenImage={tokenImage}></Chart>
           </Row>
           <Row>
               <ChartFooter></ChartFooter>

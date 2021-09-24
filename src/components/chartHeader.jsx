@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {Form, Card} from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import logo from '../resources/off-piste-logo.jpeg'
-import {apiCall} from "../api/tokenApi";
+import {getCoin} from "../api/tokenApi";
 
 export function ChartHeader() {
     const [tokenName, setTokenName] = useState("bitcoin")
@@ -24,11 +24,11 @@ export function ChartHeader() {
             setTokenList(coinObj)
             console.log(coinObj)
             //setTokenList(list)
-            //let info = await apiCall(tokenName, currencyType)
+            //let info = await getCoin(tokenName, currencyType)
              */
 
 
-            let info = await apiCall(tokenName, "usd")
+            let info = await getCoin(tokenName, "usd")
             setTokenInfo(info)
             setTokenName(Object.keys(info.data)[0].toUpperCase())
             //console.log(info)

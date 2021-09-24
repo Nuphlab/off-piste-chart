@@ -18,23 +18,33 @@ async function tokenList() {
     }
 }
 
-async function apiCall(newCoin, currencyType) {
-    let coin = newCoin || 'bitcoin'
+async function coinDataRefresh(currCoin, currencyType) {
+    let coin = currCoin || 'bitcoin'
     let currency = currencyType || 'usd'
-    let baseURL = 'https://api.coingecko.com/api/v3/simple/price'
+    let baseURL = 'https://api.coingecko.com/api/v3/coins/bitcoin'
     try {
         let response = await axios.get(baseURL,
             { params: { ids: coin, vs_currencies: currency}})
-        //response = JSON.stringify(response)
-        //console.log(response)
-        /*
-        ReactDOM.render(
-            <label>{response}</label>, document.getElementById('price')
-        )
-         */
+        console.log(response.market_data)
         return response
     }catch (e) {
         console.log(e)
     }
 }
-export {apiCall, tokenList}
+
+async function getCoin(newCoin) {
+    let coin = newCoin || 'bitcoin'
+    let baseURL = 'https://api.coingecko.com/api/v3/coins/'
+    try {
+        let response = await axios.get(`${baseURL}${coin}`)
+        /*
+        let response = await axios.get(baseURL,
+            { params: { ids: coin, vs_currencies: currency}})
+         */
+        console.log(response)
+        return response.data
+    }catch (e) {
+        console.log(e)
+    }
+}
+export {getCoin, tokenList, coinDataRefresh}

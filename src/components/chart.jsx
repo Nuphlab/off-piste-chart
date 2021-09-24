@@ -3,7 +3,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import {Container, Tab, Badge, Card, Navbar, Image} from 'react-bootstrap'
 import logo from '../resources/off-piste-logo.jpeg'
 
-export function Chart () {
+export function Chart (props) {
     const data = [
         {
             name: 'Page A',
@@ -50,7 +50,7 @@ export function Chart () {
     return(
         <Container>
             <Card>
-                <Card.Title><Image width={40} height={40} src={logo} roundedCircle></Image>Token</Card.Title>
+                <Card.Title> <Image width={40} height={40} src={props.tokenImage} roundedCircle></Image>{props.tokenName}</Card.Title>
                 <Card.Body>
                 <ResponsiveContainer width="100%" height="100%" aspect={3}>
                     <LineChart
