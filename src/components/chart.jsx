@@ -1,7 +1,8 @@
-import React from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import {Container, Tab, Badge, Card, Navbar, Image} from 'react-bootstrap'
-import logo from '../resources/off-piste-logo.jpeg'
+import React, {useState, useEffect } from 'react';
+import Select from 'react-select'
+import makeAnimated from 'react-async'
 
 export function Chart (props) {
     const data = [
@@ -47,10 +48,23 @@ export function Chart (props) {
             pv: 4300,
             amt: 2100,
         }]
+    const options = [
+        { value: 'bitcoin', label: 'BITCOIN' },
+        { value: 'ethereum', label: 'ETHEREUM' },
+        { value: 'solana', label: 'SOLANA' }
+    ]
+    //console.log("Token Data in chart page")
+    //console.log(props.tokenData)
+    const [sparkline, setSparkLine] = useState(Boolean)
+    const [resultsPerPage, setRPP] = useState(20)
+    const [priceChangePercentage, setPCP] = useState('7d')
+
     return(
-        <Container>
-            <Card>
-                <Card.Title> <Image width={40} height={40} src={props.tokenImage} roundedCircle></Image>{props.tokenName}</Card.Title>
+            <Card text={'white'} bg={'dark'} border={"2"}>
+                <Card.Header>
+                    <Select options={options} placeholder={'Select Token'}></Select>
+                </Card.Header>
+                <Card.Title> <Image width={40} height={40} src={props.tokenData?.image} roundedCircle></Image>{props.tokenData.id?.toUpperCase()}</Card.Title>
                 <Card.Body>
                 <ResponsiveContainer width="100%" height="100%" aspect={3}>
                     <LineChart
@@ -75,6 +89,5 @@ export function Chart (props) {
                 </ResponsiveContainer>
                 </Card.Body>
             </Card>
-        </Container>
     )
 }

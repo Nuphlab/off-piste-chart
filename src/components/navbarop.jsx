@@ -5,7 +5,6 @@ import logo from "../resources/off-piste-logo.jpeg";
 export function NavbarOP() {
     return(
         <Navbar bg="dark" variant="dark">
-            <Container>
                 <Navbar.Brand href="#home">
                     <img
                         alt=""
@@ -16,7 +15,6 @@ export function NavbarOP() {
                     />{' '}
                     Off-Piste
                 </Navbar.Brand>
-            </Container>
         </Navbar>
     )
 }

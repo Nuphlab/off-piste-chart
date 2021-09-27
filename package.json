@@ -13,6 +13,7 @@
     "bootstrap": "^5.1.1",
     "bootstrap-material-design-icons": "^2.2.0",
     "d3": "^7.0.1",
+    "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-async": "^10.0.1",
     "react-bootstrap": "^1.6.3",

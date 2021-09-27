@@ -3,6 +3,11 @@ import * as ReactDOM from "react-dom";
 
 async function tokenList() {
     let baseUrl = 'https://api.coingecko.com/api/v3/coins/list'
+    //let baseUrl = 'https://api.coingecko.com/api/v3/coins/markets'
+    //vs_currency = usd
+    //sparkline : yes, 7 day
+    //price change percentage 7 day
+    //cap list at 20 coins per page
     try {
         let response = await axios.get(baseUrl, {headers: {"Access-Control-Allow-Origin": "*"}})
         //response = JSON.stringify(response)
@@ -32,7 +37,7 @@ async function coinDataRefresh(currCoin, currencyType) {
     }
 }
 
-async function getCoin(newCoin) {
+async function getTokenInfo(newCoin) {
     let coin = newCoin || 'bitcoin'
     let baseURL = 'https://api.coingecko.com/api/v3/coins/'
     try {
@@ -47,4 +52,4 @@ async function getCoin(newCoin) {
         console.log(e)
     }
 }
-export {getCoin, tokenList, coinDataRefresh}
+export {getTokenInfo, tokenList, coinDataRefresh}

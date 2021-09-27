@@ -3,16 +3,22 @@ import {Card, Row, Button, Col, Container, ListGroup, Tooltip, Badge} from "reac
 import Icon from "@mdi/react";
 import {mdiInformationOutline} from "@mdi/js";
 
-function ChartFooter() {
+function ChartFooter(props) {
+    let price = props.tokenData?.current_price
+    let formattedPrice = new Intl.NumberFormat(undefined, {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+    }).format(price)
     return(
-        <Container>
         <ListGroup horizontal>
-            <Col>
+            <Col lg={3}>
                 <ListGroup.Item style={{'background-color': '#282c34'}}>
                     <Card>
                         <Card.Header>Price<Icon size={1} path={mdiInformationOutline} className={'mb-1'}></Icon></Card.Header>
                         <Card.Body>
-                            $5.09
+                            {formattedPrice}
                         </Card.Body>
                         <Card.Footer>
                             <span className="badge rounded-pill bg-primary">Primary
@@ -22,7 +28,7 @@ function ChartFooter() {
                     </Card>
                 </ListGroup.Item>
             </Col>
-            <Col>
+            <Col lg={3}>
                 <ListGroup.Item style={{'background-color': '#282c34'}}>
                     <Card>
                         <Card.Header>Trading Volume<Icon size={1} path={mdiInformationOutline} className={'mb-1'}></Icon></Card.Header>
@@ -31,7 +37,7 @@ function ChartFooter() {
                     </Card>
                 </ListGroup.Item>
             </Col>
-            <Col>
+            <Col lg={3}>
                 <ListGroup.Item style={{'background-color': '#282c34'}}>
                     <Card>
                         <Card.Header>Your Holdings<Icon size={1} path={mdiInformationOutline} className={'mb-1'}></Icon></Card.Header>
@@ -41,7 +47,7 @@ function ChartFooter() {
                     </Card>
                 </ListGroup.Item>
             </Col>
-            <Col>
+            <Col lg={3}>
                 <Card className={'mt-2'}>
                 <ListGroup.Item>
                     <Badge pill bg={'black'}></Badge>
@@ -56,7 +62,6 @@ function ChartFooter() {
                 </Card>
             </Col>
         </ListGroup>
-        </Container>
     )
 }
 

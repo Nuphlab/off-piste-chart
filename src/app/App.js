@@ -7,20 +7,32 @@ import {Card, Container, Col, Row, Button, Form, ListGroup, Tooltip, Navbar, Ima
 import ChartFooter from "../components/chartFooter";
 import {Chart} from "../components/chart";
 import {ChartHeader} from "../components/chartHeader";
-import {NavbarOP} from "../components/navbar";
+import {NavbarOP} from "../components/navbarop";
+import {getTokenInfo} from "../api/tokenApi";
+import {getMarketData, fullTokenList} from "../api/coingeckoMarket";
 
 function App() {
-    const [tokenName, setTokenName] = useState('')
+    const [tokenName, setTokenName] = useState('bitcoin')
     const [tokenImage ,setTokenImg] = useState('')
-    const [tokenPrice, setTokenPrice] = useState('')
+    const [currentPrice, setCurrentPrice] = useState('')
     const [tokenData, setTokenData] = useState({})
+    const [coinInfo, setCoinInfo] = useState("")
+    const [tokenList, setTokenList] = useState([{}])
 
     useEffect(async () => {
-        const coinInfo = await getCoin('bitcoin')
-        setTokenName(coinInfo.id.toUpperCase())
-        setTokenImg(coinInfo.image.thumb)
-        //console.log(coinInfo.id)
-        //setTokenName(coinInfo.id)
+        const fetchMarketData = async () => {
+            const marketData = await getMarketData(tokenName)
+            setTokenData(marketData[0])
+            console.log(marketData)
+        }
+        await fetchMarketData()
+    },[])
+
+    useEffect(async () => {
+       // const coinInfo = await getTokenInfo('bitcoin')
+       // setTokenName(coinInfo.id.toUpperCase())
+       // setTokenImg(coinInfo.image.thumb)
+        // onst coinInfo = await getMarketData()
     })
     useEffect(async () => {
         const price = setInterval(async () => {
@@ -31,18 +43,22 @@ function App() {
             //console.log('hi')
         },1000)
     })
+    useEffect(async () => {
+        //const list = await fullTokenList()
+        //setTokenList(list)
+        //console.log(list)
+    }, [])
 
-    const [coinInfo, setCoinInfo] = useState("")
   return (
       <Container fluid className={'Container'}>
           <Row>
               <NavbarOP></NavbarOP>
           </Row>
           <Row>
-              <Chart tokenName={tokenName} tokenImage={tokenImage}></Chart>
+              <Chart tokenData={tokenData}></Chart>
           </Row>
           <Row>
-              <ChartFooter></ChartFooter>
+              <ChartFooter tokenData={tokenData}></ChartFooter>
           </Row>
       </Container>
   )

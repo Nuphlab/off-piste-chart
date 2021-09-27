@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import {Form, Card} from "react-bootstrap";
+import {Form, Card, Container} from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import logo from '../resources/off-piste-logo.jpeg'
-import {getCoin} from "../api/tokenApi";
+import {getTokenInfo} from "../api/tokenApi";
 
 export function ChartHeader() {
     const [tokenName, setTokenName] = useState("bitcoin")
@@ -28,7 +28,7 @@ export function ChartHeader() {
              */
 
 
-            let info = await getCoin(tokenName, "usd")
+            let info = await getTokenInfo(tokenName, "usd")
             setTokenInfo(info)
             setTokenName(Object.keys(info.data)[0].toUpperCase())
             //console.log(info)
@@ -41,7 +41,7 @@ export function ChartHeader() {
         console.log(data)
     }
     return(
-        <div className="App">
+        <Container>
             <header className="App-header">
                 <Form className='mb-3' onSubmit={handleSubmit(handleToken)}>
                     <input type="input" {...register('tokenName', { required: true })} className="form-control" id="token" name='tokenName' placeholder="token"/>
@@ -56,6 +56,6 @@ export function ChartHeader() {
                     </Card.Body>
                 </Card>
             </header>
-        </div>
+        </Container>
     )
 }
