@@ -1,8 +1,10 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import {Container, Tab, Badge, Card, Navbar, Image} from 'react-bootstrap'
-import React, {useState, useEffect } from 'react';
+import React, {useState, useEffect, Component } from 'react';
 import Select from 'react-select'
 import makeAnimated from 'react-async'
+import {getMarketData} from "../api/coingeckoMarket";
+import ChartFooter from "./chartFooter";
 
 export function Chart (props) {
     const data = [
@@ -58,13 +60,29 @@ export function Chart (props) {
     const [sparkline, setSparkLine] = useState(Boolean)
     const [resultsPerPage, setRPP] = useState(20)
     const [priceChangePercentage, setPCP] = useState('7d')
+    const [tokenName, setTokenName] = useState('bitcoin')
+    const [tokenData, setTokenData] = useState({})
+
+    const handleChange = async (field, value) => {
+        console.log(value)
+        setTokenName(value.value)
+    }
+
+    useEffect(async () => {
+        const fetchMarketData = async () => {
+            const marketData = await getMarketData(tokenName)
+            setTokenData(marketData[0])
+            console.log(marketData)
+        }
+        await fetchMarketData()
+    },[tokenName])
 
     return(
             <Card text={'white'} bg={'dark'} border={"2"}>
-                <Card.Header>
-                    <Select options={options} placeholder={'Select Token'}></Select>
+                <Card.Header className={'p-0'}>
+                    <Select id={'select'} onChange={(value) => handleChange(options, value)} className={'text-black'} options={options}>{options}</Select>
                 </Card.Header>
-                <Card.Title> <Image width={40} height={40} src={props.tokenData?.image} roundedCircle></Image>{props.tokenData.id?.toUpperCase()}</Card.Title>
+                <Card.Title> <Image width={40} height={40} src={tokenData?.image} roundedCircle></Image>{tokenData.id?.toUpperCase()}</Card.Title>
                 <Card.Body>
                 <ResponsiveContainer width="100%" height="100%" aspect={3}>
                     <LineChart
@@ -88,6 +106,7 @@ export function Chart (props) {
                     </LineChart>
                 </ResponsiveContainer>
                 </Card.Body>
+                <ChartFooter tokenData={tokenData}></ChartFooter>
             </Card>
     )
 }

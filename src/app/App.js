@@ -23,7 +23,7 @@ function App() {
         const fetchMarketData = async () => {
             const marketData = await getMarketData(tokenName)
             setTokenData(marketData[0])
-            console.log(marketData)
+            //console.log(marketData)
         }
         await fetchMarketData()
     },[])
@@ -55,10 +55,7 @@ function App() {
               <NavbarOP></NavbarOP>
           </Row>
           <Row>
-              <Chart tokenData={tokenData}></Chart>
-          </Row>
-          <Row>
-              <ChartFooter tokenData={tokenData}></ChartFooter>
+              <Chart></Chart>
           </Row>
       </Container>
   )

@@ -4,6 +4,10 @@
   padding:0;
 }
 
+#select{
+  margin-bottom: 10px;
+}
+
 .List {
   background-color: #282c34;
   margin: 0;

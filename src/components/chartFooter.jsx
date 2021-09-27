@@ -11,6 +11,14 @@ function ChartFooter(props) {
         maximumFractionDigits: 0,
         minimumFractionDigits: 0,
     }).format(price)
+    let volume = props.tokenData?.total_volume
+    let formattedVolume = new Intl.NumberFormat(undefined, {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0,
+        minimumFractionDigits: 0,
+    }).format(volume)
+
     return(
         <ListGroup horizontal>
             <Col lg={3}>
@@ -33,6 +41,7 @@ function ChartFooter(props) {
                     <Card>
                         <Card.Header>Trading Volume<Icon size={1} path={mdiInformationOutline} className={'mb-1'}></Icon></Card.Header>
                         <Card.Body>
+                            {formattedVolume}
                         </Card.Body>
                     </Card>
                 </ListGroup.Item>
@@ -42,7 +51,7 @@ function ChartFooter(props) {
                     <Card>
                         <Card.Header>Your Holdings<Icon size={1} path={mdiInformationOutline} className={'mb-1'}></Icon></Card.Header>
                         <Card.Body>
-                            <Tooltip></Tooltip>
+                            Broke
                         </Card.Body>
                     </Card>
                 </ListGroup.Item>
