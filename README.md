@@ -5,6 +5,7 @@
 ## 3. After this make sure to run `npm add bootstrap react-bootstrap` for proper styling.
 ## 4. For the autocomplete selection bar we'll need run `npm add react-select` 
 ## 5. Run `npm i bootstrap-material-design-icons` for icon styling support.
+## 6. Run `npm install date-fns --save` for a modern date library.
 
 ## Available Scripts
 

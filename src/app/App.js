@@ -1,4 +1,4 @@
-import './App.css';
+import '../app/App.css'
 import React, {useState, useEffect } from 'react';
 import {getCoin, coinDataRefresh} from '../api/tokenApi'
 //let d3 handle the controlling of dom through use ref
@@ -42,7 +42,7 @@ function App() {
                       <NavbarOP></NavbarOP>
                   </Row>
                   <Row>
-                      <Chart></Chart>
+                      <Chart className={'mb-5'}></Chart>
                   </Row>
               </Container>
           </header>

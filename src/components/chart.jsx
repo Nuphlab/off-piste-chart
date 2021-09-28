@@ -1,8 +1,9 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar} from 'recharts';
-import {Container, Tab, Badge, Card, Navbar, Image} from 'react-bootstrap'
-import React, {useState, useEffect, Component } from 'react';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts';
+import {Container, Tab, Badge, Card, Navbar, Image, Button, ButtonGroup} from 'react-bootstrap'
+import React, {useState, useEffect} from 'react';
 import Select from 'react-select'
 import makeAnimated from 'react-async'
+import '../app/App.css'
 import {getMarketData, formatMarketData, formatSparkline} from "../api/coingeckoMarket";
 import ChartFooter from "./chartFooter";
 
@@ -77,6 +78,9 @@ export function Chart (props) {
         console.log(value)
         setTokenName(value.value)
     }
+    const chartView = (selection) => {
+
+    }
 
     useEffect(async () => {
         const fetchMarketData = async () => {
@@ -97,12 +101,25 @@ export function Chart (props) {
                 <Card.Header className={'p-0'}>
                     <Select id={'select'} onChange={(value) => handleChange(options, value)} className={'text-black'} options={options}>{options}</Select>
                 </Card.Header>
-                <Card.Title> <Image width={40} height={40} src={tokenData?.image} roundedCircle></Image>{tokenData.id?.toUpperCase()}</Card.Title>
+                <Card.Title>
+                </Card.Title>
+                <Card.Text>
+                    <Image width={40} height={40} src={tokenData?.image} roundedCircle>
+                    </Image> {tokenData.id?.toUpperCase()}
+                    <ButtonGroup className="float-end" size={'sm'} aria-label="Basic example">
+                        <Button onSubmit={chartView('1D')} id={'btn'} class="btn btn-secondary" variant="secondary">{'1D'}</Button>
+                        <Button onSubmit={chartView('1W')} id={'btn'} class="btn btn-secondary" variant="secondary">{'1W'}</Button>
+                        <Button onSubmit={chartView('1M')} id={'btn'} class="btn btn-secondary" variant="secondary">{'1M'}</Button>
+                        <Button onSubmit={chartView('3M')} id={'btn'} class="btn btn-secondary" variant="secondary">{'3M'}</Button>
+                        <Button onSubmit={chartView('6M')} id={'btn'} class="btn btn-secondary" variant="secondary">{'6M'}</Button>
+                        <Button onSubmit={chartView('1Y')} id={'btn'} class="btn btn-secondary" variant="secondary">{'1Y'}</Button>
+                    </ButtonGroup>
+                </Card.Text>
                 <Card.Body>
-                <ResponsiveContainer width="100%" height="100%" aspect={3}>
+                <ResponsiveContainer width="100%" height="400" aspect={3}>
                     <LineChart
-                        width={600}
-                        height={400}
+                        width={400}
+                        height={200}
                         data={sparkline}
                         margin={{
                             top: 5,
@@ -115,14 +132,14 @@ export function Chart (props) {
                         <XAxis />
                         <YAxis />
                         <Tooltip />
-                        <Line dot={false} type="linears" dataKey="y" stroke="#46D168" activeDot={{ stroke: 'red', strokeWidth: 2, r: 3 }} />
+                        <Line dot={false} type="linears" dataKey="y" stroke="#46D168" activeDot={{ stroke: 'red', strokeWidth: 2, r: 3 }}/>
                         <Legend/>
-                        <Bar dataKey='y' fill="#8884d8" />
-                        <Bar dataKey="y" fill="#82ca9d" />
                     </LineChart>
                 </ResponsiveContainer>
                 </Card.Body>
+                <Card.Footer className={'mt-2'}>
                 <ChartFooter timeframeChoice={timeframeChoice} tokenData={tokenData}></ChartFooter>
+                </Card.Footer>
             </Card>
     )
 }
