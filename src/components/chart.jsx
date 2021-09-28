@@ -1,4 +1,4 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar} from 'recharts';
 import {Container, Tab, Badge, Card, Navbar, Image} from 'react-bootstrap'
 import React, {useState, useEffect, Component } from 'react';
 import Select from 'react-select'
@@ -83,7 +83,7 @@ export function Chart (props) {
             const marketData = await getMarketData(tokenName)
             setMarketData(marketData)
             let newData = marketData[0]
-            setSparkLine(marketData)
+            setSparkLine(marketData[0]?.sparkline_in_7_d.price)
             setTokenData(newData)
             //setPercentageChange(data?.price_change_percentage_24h)
             console.log('new data')
@@ -103,7 +103,7 @@ export function Chart (props) {
                     <LineChart
                         width={600}
                         height={400}
-                        data={sparkline[0]?.sparkline_in_7_d.price}
+                        data={sparkline}
                         margin={{
                             top: 5,
                             right: 30,
@@ -111,12 +111,14 @@ export function Chart (props) {
                             bottom: 5,
                         }}
                     >
-                        <CartesianGrid />
+                        <CartesianGrid opacity={.1} vertical={false}/>
                         <XAxis />
                         <YAxis />
                         <Tooltip />
-                        <Line type="monotone" dataKey="y" stroke="#46D168" activeDot={{ r: 0 }} />
-                        <Legend />
+                        <Line dot={false} type="linears" dataKey="y" stroke="#46D168" activeDot={{ stroke: 'red', strokeWidth: 2, r: 3 }} />
+                        <Legend/>
+                        <Bar dataKey='y' fill="#8884d8" />
+                        <Bar dataKey="y" fill="#82ca9d" />
                     </LineChart>
                 </ResponsiveContainer>
                 </Card.Body>
