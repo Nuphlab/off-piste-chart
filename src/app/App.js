@@ -12,21 +12,6 @@ import {getTokenInfo} from "../api/tokenApi";
 import {getMarketData, fullTokenList} from "../api/coingeckoMarket";
 
 function App() {
-    const [tokenName, setTokenName] = useState('bitcoin')
-    const [tokenImage ,setTokenImg] = useState('')
-    const [currentPrice, setCurrentPrice] = useState('')
-    const [tokenData, setTokenData] = useState({})
-    const [coinInfo, setCoinInfo] = useState("")
-    const [tokenList, setTokenList] = useState([{}])
-
-    useEffect(async () => {
-        const fetchMarketData = async () => {
-            const marketData = await getMarketData(tokenName)
-            setTokenData(marketData[0])
-            //console.log(marketData)
-        }
-        await fetchMarketData()
-    },[])
 
     useEffect(async () => {
        // const coinInfo = await getTokenInfo('bitcoin')
@@ -50,70 +35,19 @@ function App() {
     }, [])
 
   return (
-      <Container fluid className={'Container'}>
-          <Row>
-              <NavbarOP></NavbarOP>
-          </Row>
-          <Row>
-              <Chart></Chart>
-          </Row>
-      </Container>
+      <div className="App">
+          <header className="App-header">
+              <Container className={'Container'} fluid>
+                  <Row>
+                      <NavbarOP></NavbarOP>
+                  </Row>
+                  <Row>
+                      <Chart></Chart>
+                  </Row>
+              </Container>
+          </header>
+      </div>
   )
 }
 
 export default App;
-
-/*
-<div className="App">
-          <header className="App-header">
-              <Form className='mb-3' onSubmit={handleSubmit(handleToken)}>
-                  <input type="input" {...register('tokenName', { required: true })} className="form-control" id="token" name='tokenName' placeholder="token"/>
-                  <button type="submit" className="btn btn-danger">Submit</button>
-              </Form>
-          <Card>
-              <Card.Img src={logo}/>
-              <Card.Body>
-                  <Card.Title>{tokenName}</Card.Title>
-                  <Card.Text style={{color: "#000"}}>
-                  </Card.Text>
-              </Card.Body>
-          </Card>
-          </header>
-              <Row className={'App-footer'}>
-                  <Col>
-                      <ListGroup horizontal>
-                          <ListGroup.Item>
-                              <Card className={'Card'}>
-                                  <Card.Body className={{'flex-direction': 'row'}}>
-                                      <Card.Title>Price</Card.Title>
-                                      <Icon size={1} path={mdiInformationOutline}></Icon>
-                                  </Card.Body>
-                              </Card>
-                          </ListGroup.Item>
-                          <ListGroup.Item>
-                              <Card>
-                                  <Card.Body>
-                                      <Card.Title>Trading Volume</Card.Title>
-                                  </Card.Body>
-                              </Card>
-                          </ListGroup.Item>
-                          <ListGroup.Item>
-                              <Card>
-                                  <Card.Body>
-                                      <Card.Title>Your Holdings</Card.Title>
-                                      <Tooltip></Tooltip>
-                                  </Card.Body>
-                              </Card>
-                          </ListGroup.Item>
-                      </ListGroup>
-                  </Col>
-                  <Col>
-                      <ListGroup>
-                          <ListGroup.Item>Price</ListGroup.Item>
-                          <ListGroup.Item>Market to Value</ListGroup.Item>
-                          <ListGroup.Item>Volume</ListGroup.Item>
-                      </ListGroup>
-                  </Col>
-              </Row>
-    </div>
- */

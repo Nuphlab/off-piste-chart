@@ -1,28 +1,31 @@
-.Container {
+.App-header {
   background-color: #282c34;
-  margin:0;
-  padding:0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: initial;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+.body-film {
+  min-height: 100%;
+  overflow-y: scroll;
+}
+.pill1 {
+  background-color: #ffffff !important;
+  color: #ffffff !important;
+}
+.pill2 {
+  background-color: #ffffff !important;
+  color: #ffffff !important;
+}
+.pill3 {
+  background-color: #ffffff !important;
+  color: #ffffff !important;
 }
 
 #select{
   margin-bottom: 10px;
 }
 
-.List {
-  background-color: #282c34;
-  margin: 0;
-  padding: 0;
-}
-
-.Card {
-  background-color: #282c34;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}

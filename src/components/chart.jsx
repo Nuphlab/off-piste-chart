@@ -3,7 +3,7 @@ import {Container, Tab, Badge, Card, Navbar, Image} from 'react-bootstrap'
 import React, {useState, useEffect, Component } from 'react';
 import Select from 'react-select'
 import makeAnimated from 'react-async'
-import {getMarketData} from "../api/coingeckoMarket";
+import {getMarketData, formatMarketData, formatSparkline} from "../api/coingeckoMarket";
 import ChartFooter from "./chartFooter";
 
 export function Chart (props) {
@@ -50,18 +50,28 @@ export function Chart (props) {
             pv: 4300,
             amt: 2100,
         }]
+    const chartData = [
+        {
+            name: String,
+            uv: Number,
+            pv: Number,
+            amount: Number
+        }
+    ]
     const options = [
         { value: 'bitcoin', label: 'BITCOIN' },
         { value: 'ethereum', label: 'ETHEREUM' },
-        { value: 'solana', label: 'SOLANA' }
+        { value: 'solana', label: 'SOLANA' },
+        { value: 'cardano', label: 'CARDANO' }
     ]
     //console.log("Token Data in chart page")
     //console.log(props.tokenData)
-    const [sparkline, setSparkLine] = useState(Boolean)
+    const [sparkline, setSparkLine] = useState([])
     const [resultsPerPage, setRPP] = useState(20)
-    const [priceChangePercentage, setPCP] = useState('7d')
     const [tokenName, setTokenName] = useState('bitcoin')
     const [tokenData, setTokenData] = useState({})
+    const [marketData, setMarketData] = useState([])
+    const [timeframeChoice, setTimeframeChoice] = useState('24hr')
 
     const handleChange = async (field, value) => {
         console.log(value)
@@ -71,8 +81,13 @@ export function Chart (props) {
     useEffect(async () => {
         const fetchMarketData = async () => {
             const marketData = await getMarketData(tokenName)
-            setTokenData(marketData[0])
-            console.log(marketData)
+            setMarketData(marketData)
+            let newData = marketData[0]
+            setSparkLine(marketData)
+            setTokenData(newData)
+            //setPercentageChange(data?.price_change_percentage_24h)
+            console.log('new data')
+            console.log(newData)
         }
         await fetchMarketData()
     },[tokenName])
@@ -86,9 +101,9 @@ export function Chart (props) {
                 <Card.Body>
                 <ResponsiveContainer width="100%" height="100%" aspect={3}>
                     <LineChart
-                        width={500}
-                        height={300}
-                        data={data}
+                        width={600}
+                        height={400}
+                        data={sparkline[0]?.sparkline_in_7_d.price}
                         margin={{
                             top: 5,
                             right: 30,
@@ -96,17 +111,16 @@ export function Chart (props) {
                             bottom: 5,
                         }}
                     >
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="name" />
+                        <CartesianGrid />
+                        <XAxis />
                         <YAxis />
                         <Tooltip />
+                        <Line type="monotone" dataKey="y" stroke="#46D168" activeDot={{ r: 0 }} />
                         <Legend />
-                        <Line type="monotone" dataKey="pv" stroke="#46D168" activeDot={{ r: 8 }} />
-                        <Line type="monotone" dataKey="uv" stroke="#257D84" />
                     </LineChart>
                 </ResponsiveContainer>
                 </Card.Body>
-                <ChartFooter tokenData={tokenData}></ChartFooter>
+                <ChartFooter timeframeChoice={timeframeChoice} tokenData={tokenData}></ChartFooter>
             </Card>
     )
 }

@@ -1,22 +1,27 @@
 import axios from 'axios'
 import moment from "moment";
 
-const formatSparkline = (numbers) => {
+export const formatSparkline = (numbers) => {
+    console.log(numbers)
     const sevenDaysAgo = moment().subtract(7, 'days').unix()
-    let formatSparkline = numbers.map((item,index) => {
+    let formattedSparkline = numbers.map((item,index) => {
         return {
             x: sevenDaysAgo + (index + 1) * 3600,
             y: item
         }
     })
-    return formatSparkline
+    //console.log('formatted sparkline')
+    //console.log(formattedSparkline)
+    return formattedSparkline
 }
 
-const formatMarketData = (data) => {
+export const formatMarketData = (data) => {
     let formattedData = []
 
-    data.forEach(item => {
+    data.forEach( item => {
         const formattedSparkline = formatSparkline(item.sparkline_in_7d.price)
+        //console.log('formattedSparkline check')
+        //console.log(formattedSparkline)
         const formattedItem = {
             ...item,
             sparkline_in_7_d: {
@@ -24,7 +29,11 @@ const formatMarketData = (data) => {
             }
         }
         formattedData.push(formattedItem)
+        //console.log('formatted item')
+        //console.log(formattedItem)
     })
+    console.log('formatted data')
+    console.log(formattedData)
     return formattedData
 }
 
@@ -33,7 +42,8 @@ export const getMarketData = async (tokenName) => {
     try{
         const response = await axios.get(baseUrl)
         const data = response.data
-        const formattedResponse = formatMarketData(data)
+        const formattedResponse = await formatMarketData(data)
+        console.log(formattedResponse)
         return formattedResponse
     } catch(e) {
         console.log(e)
