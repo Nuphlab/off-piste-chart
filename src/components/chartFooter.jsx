@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, Row, Button, Col, Container, ListGroup, Tooltip, Badge} from "react-bootstrap";
+import {Card, Col, ListGroup, Badge} from "react-bootstrap";
 import Icon from "@mdi/react";
 import {mdiInformationOutline} from "@mdi/js";
 import {mdiArrowUpBold, mdiArrowDownBold} from "@mdi/js";
@@ -22,12 +22,12 @@ function ChartFooter(props) {
     }).format(volume)
     let upArrow = () => {
         return(
-            <Icon size={.7} path={mdiArrowUpBold}></Icon>
+            <Icon size={.7} path={mdiArrowUpBold} className={'text-success'}></Icon>
         )
     }
     let downArrow = () => {
         return(
-            <Icon size={.7} path={mdiArrowDownBold}></Icon>
+            <Icon size={.7} path={mdiArrowDownBold} className={'text-danger'}></Icon>
         )
     }
 
@@ -41,10 +41,12 @@ function ChartFooter(props) {
                             {formattedPrice}
                         </Card.Body>
                         <Card.Footer>
-                            <span className="badge rounded-pill bg-primary">{props?.timeframeChoice}
-                            <Badge>
+                            <span className="badge rounded-pill bg-gradient">
+                            <Badge className={'fs-6'}>
+                                {props?.timeframeChoice}
                                 {props?.tokenData.price_change_percentage_24h > 0 ? upArrow():downArrow()}
-                                {props?.tokenData.price_change_percentage_24h}</Badge>
+                                {props?.tokenData.price_change_percentage_24h}
+                            </Badge>
                             </span>
                         </Card.Footer>
                     </Card>

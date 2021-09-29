@@ -1,18 +1,11 @@
 import '../app/App.css'
-import React, {useState, useEffect } from 'react';
-import {getCoin, coinDataRefresh} from '../api/tokenApi'
 //let d3 handle the controlling of dom through use ref
-import logo from '../resources/off-piste-logo.jpeg'
-import {Card, Container, Col, Row, Button, Form, ListGroup, Tooltip, Navbar, Image, NavbarBrand} from "react-bootstrap";
-import ChartFooter from "../components/chartFooter";
+import {Container, Row} from "react-bootstrap";
 import {Chart} from "../components/chart";
-import {ChartHeader} from "../components/chartHeader";
 import {NavbarOP} from "../components/navbarop";
-import {getTokenInfo} from "../api/tokenApi";
-import {getMarketData, fullTokenList} from "../api/coingeckoMarket";
 
 function App() {
-
+/*
     useEffect(async () => {
        // const coinInfo = await getTokenInfo('bitcoin')
        // setTokenName(coinInfo.id.toUpperCase())
@@ -33,6 +26,8 @@ function App() {
         //setTokenList(list)
         //console.log(list)
     }, [])
+
+ */
 
   return (
       <div className="App">

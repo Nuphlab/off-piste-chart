@@ -1,11 +1,11 @@
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer} from 'recharts';
-import {Container, Tab, Badge, Card, Navbar, Image, Button, ButtonGroup} from 'react-bootstrap'
+import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Bar, BarChart} from 'recharts';
+import {Card, Image, Button, ButtonGroup} from 'react-bootstrap'
 import React, {useState, useEffect} from 'react';
 import Select from 'react-select'
-import makeAnimated from 'react-async'
 import '../app/App.css'
-import {getMarketData, formatMarketData, formatSparkline} from "../api/coingeckoMarket";
+import {getMarketData} from "../api/coingeckoMarket";
 import ChartFooter from "./chartFooter";
+import {format, parseISO, subDays, fromUnixTime} from "date-fns";
 
 export function Chart (props) {
     const data = [
@@ -68,11 +68,27 @@ export function Chart (props) {
     //console.log("Token Data in chart page")
     //console.log(props.tokenData)
     const [sparkline, setSparkLine] = useState([])
-    const [resultsPerPage, setRPP] = useState(20)
     const [tokenName, setTokenName] = useState('bitcoin')
     const [tokenData, setTokenData] = useState({})
     const [marketData, setMarketData] = useState([])
-    const [timeframeChoice, setTimeframeChoice] = useState('24hr')
+    const [xAxisArray, setXAxisArray] = useState([''])
+    //const [dateSet, setDateSet] = useState([])
+    const dateSet = new Set([])
+
+    const chartXAxis = (setting) => {
+        setting = 30 || setting
+        const monthData = []
+        for(let num = setting; num >= 0; num--) {
+            monthData.push({
+                //subDays(current date, number of days back)
+                date: subDays(new Date(), num).toISOString().substring(0, 10),
+                value: 1 + Math.random()
+            })
+        }
+        //setXAxisArray(monthData)
+        return monthData
+        console.log(monthData)
+    }
 
     const handleChange = async (field, value) => {
         console.log(value)
@@ -94,6 +110,15 @@ export function Chart (props) {
             console.log(newData)
         }
         await fetchMarketData()
+
+       /* sparkline.forEach(p => {
+            //console.log(fromUnixTime(p.x))
+            let date = fromUnixTime(p.x).getDate()
+            dateSet.add(date)
+        })
+        console.log(dateSet)
+        */
+        console.log(sparkline)
     },[tokenName])
 
     return(
@@ -108,7 +133,7 @@ export function Chart (props) {
                     </Image> {tokenData.id?.toUpperCase()}
                     <ButtonGroup className="float-end" size={'sm'} aria-label="Basic example">
                         <Button onSubmit={chartView('1D')} id={'btn'} class="btn btn-secondary" variant="secondary">{'1D'}</Button>
-                        <Button onSubmit={chartView('1W')} id={'btn'} class="btn btn-secondary" variant="secondary">{'1W'}</Button>
+                        <Button onSubmit={chartView('1W')} id={'btn1'} class="btn btn-secondary" variant="secondary">{'1W'}</Button>
                         <Button onSubmit={chartView('1M')} id={'btn'} class="btn btn-secondary" variant="secondary">{'1M'}</Button>
                         <Button onSubmit={chartView('3M')} id={'btn'} class="btn btn-secondary" variant="secondary">{'3M'}</Button>
                         <Button onSubmit={chartView('6M')} id={'btn'} class="btn btn-secondary" variant="secondary">{'6M'}</Button>
@@ -116,10 +141,10 @@ export function Chart (props) {
                     </ButtonGroup>
                 </Card.Text>
                 <Card.Body>
-                <ResponsiveContainer width="100%" height="400" aspect={3}>
+                <ResponsiveContainer width="100%" aspect={3}>
                     <LineChart
                         width={400}
-                        height={200}
+                        height={300}
                         data={sparkline}
                         margin={{
                             top: 5,
@@ -129,8 +154,37 @@ export function Chart (props) {
                         }}
                     >
                         <CartesianGrid opacity={.1} vertical={false}/>
-                        <XAxis />
-                        <YAxis />
+                        <XAxis
+                            tickLine={false}
+                            dataKey={'x'}
+                            tickFormatter={
+                                str => {
+                                    let date = fromUnixTime(str)
+                                    return ""
+                                    // potentially use set to compare with days
+                                    //so that we only get unique values for those days
+                                    // max number of days per search format
+
+                                    //console.log(date.getDate())
+                                    /*
+                                    if(dateSet.has(date?.getDate())){
+                                        return ""
+                                    } else {
+                                        //return format(date, "MMM, d")
+                                        xAxisArray.push(date)
+                                        //return date?.getDate()
+                                        return ''
+                                    }
+
+                                    if (date.getDate() % 2 === 0) {
+                                    return format(date, "MMM, d")
+                                    }
+
+                                     */
+                                }
+                            }
+                        />
+                        <YAxis/>
                         <Tooltip />
                         <Line dot={false} type="linears" dataKey="y" stroke="#46D168" activeDot={{ stroke: 'red', strokeWidth: 2, r: 3 }}/>
                         <Legend/>
@@ -138,8 +192,9 @@ export function Chart (props) {
                 </ResponsiveContainer>
                 </Card.Body>
                 <Card.Footer className={'mt-2'}>
-                <ChartFooter timeframeChoice={timeframeChoice} tokenData={tokenData}></ChartFooter>
+                <ChartFooter timeframeChoice={'24hr'} tokenData={tokenData}></ChartFooter>
                 </Card.Footer>
             </Card>
     )
 }
+

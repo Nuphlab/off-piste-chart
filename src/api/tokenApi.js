@@ -1,5 +1,4 @@
 import axios from "axios";
-import * as ReactDOM from "react-dom";
 
 async function tokenList() {
     let baseUrl = 'https://api.coingecko.com/api/v3/coins/list'

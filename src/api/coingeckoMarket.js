@@ -37,8 +37,8 @@ export const formatMarketData = (data) => {
         //console.log('formatted item')
         //console.log(formattedItem)
     })
-    console.log('formatted data')
-    console.log(formattedData)
+    //console.log('formatted data')
+    //console.log(formattedData)
     return formattedData
 }
 
@@ -49,7 +49,7 @@ export const getMarketData = async (tokenName) => {
         const response = await axios.get(baseUrl)
         const data = response.data
         const formattedResponse = await formatMarketData(data)
-        console.log(formattedResponse)
+        //console.log(formattedResponse)
         return formattedResponse
     } catch(e) {
         console.log(e)

@@ -1,3 +1,4 @@
+/*
 import React, {useEffect, useState} from 'react'
 import {Form, Card, Container} from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -17,7 +18,7 @@ export function ChartHeader() {
 
     useEffect(() => {
         async function newList() {
-            /*
+
             let coinObj = await tokenList()
             if(coinObj === undefined) {return}
             coinObj = coinObj.map( coinObj => ({value:coinObj.id, label:coinObj.name}) )
@@ -25,7 +26,7 @@ export function ChartHeader() {
             console.log(coinObj)
             //setTokenList(list)
             //let info = await getCoin(tokenName, currencyType)
-             */
+
 
 
             let info = await getTokenInfo(tokenName, "usd")
@@ -40,6 +41,8 @@ export function ChartHeader() {
         setTokenName(data.tokenName)
         console.log(data)
     }
+    */
+/*
     return(
         <Container>
             <header className="App-header">
@@ -59,3 +62,5 @@ export function ChartHeader() {
         </Container>
     )
 }
+
+ */
