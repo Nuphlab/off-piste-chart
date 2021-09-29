@@ -10,15 +10,20 @@
   color: white;
 }
 
-#btn1 {
+#btn1:focus {
+  color: red;
 }
-#btn2 {
+#btn2:focus {
+  color: red;
 }
-#btn3 {
+#btn3:focus {
+  color: red;
 }
-#btn4 {
+#btn4:focus {
+  color: red;
 }
-#btn5 {
+#btn5:focus {
+  color: red;
 }
 
 .body-film {
