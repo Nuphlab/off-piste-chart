@@ -1,5 +1,5 @@
 import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, Bar, BarChart} from 'recharts';
-import {Card, Image, Button, ButtonGroup} from 'react-bootstrap'
+import {Card, Image, Button, ButtonGroup, Badge} from 'react-bootstrap'
 import React, {useState, useEffect} from 'react';
 import Select from 'react-select'
 import '../app/App.css'
@@ -72,23 +72,8 @@ export function Chart (props) {
     const [tokenData, setTokenData] = useState({})
     const [marketData, setMarketData] = useState([])
     const [xAxisArray, setXAxisArray] = useState([''])
-    //const [dateSet, setDateSet] = useState([])
     const dateSet = new Set([])
 
-    const chartXAxis = (setting) => {
-        setting = 30 || setting
-        const monthData = []
-        for(let num = setting; num >= 0; num--) {
-            monthData.push({
-                //subDays(current date, number of days back)
-                date: subDays(new Date(), num).toISOString().substring(0, 10),
-                value: 1 + Math.random()
-            })
-        }
-        //setXAxisArray(monthData)
-        return monthData
-        console.log(monthData)
-    }
 
     const handleChange = async (field, value) => {
         console.log(value)
@@ -185,7 +170,7 @@ export function Chart (props) {
                             }
                         />
                         <YAxis/>
-                        <Tooltip />
+                        <Tooltip content={<CustomTooltip />} />
                         <Line dot={false} type="linears" dataKey="y" stroke="#46D168" activeDot={{ stroke: 'red', strokeWidth: 2, r: 3 }}/>
                         <Legend/>
                     </LineChart>
@@ -198,3 +183,20 @@ export function Chart (props) {
     )
 }
 
+const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+        return (
+            <div className="custom-tooltip">
+                        <span className="badge rounded-pill bg-gradient">
+                            <Badge className={'fs-6'}>
+                            {`${fromUnixTime(label).toISOString().slice(0,10)}`}
+                            <br/>
+                            {`Price: ${payload[0].value.toFixed(2)}`}
+                            </Badge>
+                        </span>
+            </div>
+        );
+    }
+
+    return null;
+};
