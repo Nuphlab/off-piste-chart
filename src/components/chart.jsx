@@ -72,6 +72,12 @@ export function Chart (props) {
     const [tokenData, setTokenData] = useState({})
     const [marketData, setMarketData] = useState([])
     const [xAxisArray, setXAxisArray] = useState([''])
+    const [activeButton1, setActiveButton1] = useState(false)
+    const [activeButton2, setActiveButton2] = useState(false)
+    const [activeButton3, setActiveButton3] = useState(false)
+    const [activeButton4, setActiveButton4] = useState(false)
+    const [activeButton5, setActiveButton5] = useState(false)
+    const [activeButton6, setActiveButton6] = useState(false)
     const dateSet = new Set([])
 
 
@@ -105,6 +111,9 @@ export function Chart (props) {
         */
         console.log(sparkline)
     },[tokenName])
+    const changeColor = () => {
+        return
+    }
 
     return(
             <Card text={'white'} bg={'dark'} border={"2"}>
@@ -117,12 +126,12 @@ export function Chart (props) {
                     <Image width={40} height={40} src={tokenData?.image} roundedCircle>
                     </Image> {tokenData.id?.toUpperCase()}
                     <ButtonGroup className="float-end" size={'sm'} aria-label="Basic example">
-                        <Button onSubmit={chartView('1D')} id={'btn'} class="btn btn-secondary" variant="secondary">{'1D'}</Button>
-                        <Button onSubmit={chartView('1W')} id={'btn1'} class="btn btn-secondary" variant="secondary">{'1W'}</Button>
-                        <Button onSubmit={chartView('1M')} id={'btn'} class="btn btn-secondary" variant="secondary">{'1M'}</Button>
-                        <Button onSubmit={chartView('3M')} id={'btn'} class="btn btn-secondary" variant="secondary">{'3M'}</Button>
-                        <Button onSubmit={chartView('6M')} id={'btn'} class="btn btn-secondary" variant="secondary">{'6M'}</Button>
-                        <Button onSubmit={chartView('1Y')} id={'btn'} class="btn btn-secondary" variant="secondary">{'1Y'}</Button>
+                        <Button onClick={() => setActiveButton1(!activeButton1)} onSubmit={chartView('1D')} id={'btn1'} class={`btn btn-secondary ${activeButton1 === true? 'text-danger':'text-white'}`} variant="secondary">{'1D'}</Button>
+                        <Button onClick={() => setActiveButton2(!activeButton2)} onSubmit={chartView('1W')} id={'btn2'} class={`btn btn-secondary ${activeButton2 === true? 'text-danger':'text-white'}`} variant="secondary">{'1W'}</Button>
+                        <Button onClick={() => setActiveButton3(!activeButton3)} onSubmit={chartView('1M')} id={'btn3'} class={`btn btn-secondary ${activeButton3 === true? 'text-danger':'text-white'}`} variant="secondary">{'1M'}</Button>
+                        <Button onClick={() => setActiveButton4(!activeButton4)} onSubmit={chartView('3M')} id={'btn3'} class={`btn btn-secondary ${activeButton4 === true? 'text-danger':'text-white'}`} variant="secondary">{'3M'}</Button>
+                        <Button onClick={() => setActiveButton5(!activeButton5)} onSubmit={chartView('6M')} id={'btn4'} class={`btn btn-secondary ${activeButton5 === true? 'text-danger':'text-white'}`} variant="secondary">{'6M'}</Button>
+                        <Button onClick={() => setActiveButton6(!activeButton6)} onSubmit={chartView('1Y')} id={'btn5'} class={`btn btn-secondary ${activeButton6 === true? 'text-danger':'text-white'}`} variant="secondary">{'1Y'}</Button>
                     </ButtonGroup>
                 </Card.Text>
                 <Card.Body>
