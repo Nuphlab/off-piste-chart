@@ -1,15 +1,11 @@
 import {
-    LineChart,
     Line,
     XAxis,
     YAxis,
     CartesianGrid,
     Tooltip,
-    Legend,
     ResponsiveContainer,
     Bar,
-    BarChart,
-    CustomizedProps,
     ComposedChart
 } from 'recharts';
 import {Card, Image, Button, ButtonGroup, Badge} from 'react-bootstrap'
