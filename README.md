@@ -1,5 +1,7 @@
 # Getting Started with the Off-Piste Chart:
 
+![off-piste pic of skiing](/Users/westleyholden/off-piste-chart/src/resources/off-piste-skiing-trois-vallees.jpeg)
+
 ## 1. Run `npm i` to get all of the packaging set up.
 ## 2. Then run `npm i recharts` to bring the charts library into play. (Runs on d3 and react)
 ## 3. After this make sure to run `npm add bootstrap react-bootstrap` for proper styling.
