@@ -5,7 +5,6 @@ import {mdiInformationOutline} from "@mdi/js";
 import {mdiArrowUpBold, mdiArrowDownBold} from "@mdi/js";
 
 function ChartFooter(props) {
-    //style={{'background-color': '#282c34'}}
     let price = props.tokenData?.current_price
     let formattedPrice = new Intl.NumberFormat(undefined, {
         style: 'currency',
@@ -32,9 +31,9 @@ function ChartFooter(props) {
     }
 
     return(
-        <ListGroup horizontal className={'bg-dark justify-content-center border-0'}>
+        <ListGroup horizontal className={'bg-dark justify-content-center'}>
             <Col lg={3}>
-                <ListGroup.Item className={'p-0 border:0'}>
+                <ListGroup.Item className={'p-0 border-0 bg-dark'}>
                     <Card bg={'dark text-white'}>
                         <Card.Header>Price<Icon size={1} path={mdiInformationOutline} className={'mb-1'}></Icon></Card.Header>
                         <Card.Body className={'dark'}>
@@ -53,7 +52,7 @@ function ChartFooter(props) {
                 </ListGroup.Item>
             </Col>
             <Col lg={3}>
-                <ListGroup.Item className={'p-0'}>
+                <ListGroup.Item className={'p-0 border-0 bg-dark'}>
                     <Card bg={'dark text-white'}>
                         <Card.Header>Trading Volume<Icon size={1} path={mdiInformationOutline} className={'mb-1'}></Icon></Card.Header>
                         <Card.Body>
@@ -63,7 +62,7 @@ function ChartFooter(props) {
                 </ListGroup.Item>
             </Col>
             <Col lg={3}>
-                <ListGroup.Item className={'p-0'}>
+                <ListGroup.Item className={'p-0 border-0 bg-dark'}>
                     <Card bg={'dark text-white'}>
                         <Card.Header>Your Holdings<Icon size={1} path={mdiInformationOutline} className={'mb-1'}></Icon></Card.Header>
                         <Card.Body>
@@ -73,8 +72,8 @@ function ChartFooter(props) {
                 </ListGroup.Item>
             </Col>
             <Col lg={3}>
-                <Card>
-                    <Card.Header className={'p-0'}>
+                <Card className={'border-0'}>
+                    <Card.Header className={'p-0 border-0'}>
                 <ListGroup.Item className={'bg-dark text-white'}>
                     <label>Price<Icon size={.8} path={mdiInformationOutline} className={'mb-1'}></Icon></label>
                 </ListGroup.Item>
